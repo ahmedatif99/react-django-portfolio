@@ -5,7 +5,8 @@ ENVIRONMENT = os.getenv('ENVIRONMENT', 'development')
 DEBUG = True
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '-05sgp9!deq=q1nltm@^^2cc+v29i(tyybv3v2t77qi66czazj'
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+SITE_ID = 1
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -14,6 +15,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+
+    'django.contrib.sites',
+    "corsheaders",
+    'ckeditor',
     'core'
 ]
 
@@ -24,10 +31,11 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware'
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
-ROOT_URLCONF = 'demo.urls'
+ROOT_URLCONF = 'myportfolio.urls'
 
 TEMPLATES = [
     {
@@ -57,10 +65,21 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+# db_password = env_value["POSTGRES_ADMIN_PASSWORD"]
+# db_host = env_value["POSTGRES_HOST"]
+# db_user = env_value["POSTGRES_ADMIN_USER"]
+
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, 'db.sqlite3')
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': '3nlOl6PBcXwAoNGgiHst',
+        'HOST': 'containers-us-west-189.railway.app',
+        'PORT': 6339,
     }
 }
 
